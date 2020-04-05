@@ -3,20 +3,15 @@ import QtQuick.Controls 2.14
 import QtWebView 1.14
 
 Page {
-    width: 320
-    height: 480
+    width: 720 * .7
+    height: 1240 * .7
     id: page
 
     property string name
     property string address
 
-    /*header: mainSwipeView.search.header
-    Label {
-        text: qsTr(name)
-        font.pixelSize: Qt.application.font.pixelSize * 2
-        padding: 10
-    }*/
     WebView {
+        id: webview
         anchors.fill: parent
         url: page.address
     }

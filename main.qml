@@ -1,7 +1,5 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
-//import QtQuick.VirtualKeyboard 2.14
-//import QtQuick.VirtualKeyboard.Settings 2.14
 
 ApplicationWindow {
     id: window
@@ -27,7 +25,7 @@ ApplicationWindow {
                 name: model.name
                 visible: mainSwipeView.viewSearch
                 address: model.addr.replace("[q]", mainSwipeView.keyword)
-                onAddressChanged: print(address)
+                onAddressChanged: model.webview.urlChanged()
             }
         }
 
