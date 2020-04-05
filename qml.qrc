@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>Search.ui.qml</file>
+        <file>Settings.ui.qml</file>
+        <file>SearchResults.ui.qml</file>
+    </qresource>
+</RCC>
