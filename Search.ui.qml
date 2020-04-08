@@ -2,8 +2,7 @@ import QtQuick 2.14
 import QtQuick.Controls 2.14
 
 Page {
-    width: 720 * .7
-    height: 1240 * .7
+    id: searchPage
 
     header: Label {
         id: label
@@ -42,7 +41,6 @@ Page {
                 //placeholderText: "Ord"
                 selectByMouse: true
                 cursorVisible: true
-                overwriteMode: true
                 mouseSelectionMode: TextInput.SelectCharacters
                 layer.enabled: true
                 anchors.rightMargin: 10
@@ -67,17 +65,37 @@ Page {
         onClicked: {
             mainSwipeView.keyword = textEdit.text
             mainSwipeView.viewSearch = true
-            mainSwipeView.currentIndex = 2
+            mainSwipeView.currentIndex = 1
         }
     }
 
     Connections {
         target: textEdit
         Component.onCompleted: forceActiveFocus()
-        onEditingFinished: button.onClicked()
+        onAccepted: button.onClicked()
     }
     Connections {
         target: defaultButton
         onClicked: textEdit.forceActiveFocus()
     }
+
+    Image {
+        id: image
+        x: 352
+        y: 636
+        width: 100
+        height: 100
+        anchors.right: parent.right
+        anchors.rightMargin: 100
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 100
+        fillMode: Image.PreserveAspectFit
+        source: "images/J.jpg"
+    }
 }
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

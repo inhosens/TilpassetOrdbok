@@ -1,5 +1,7 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
+import Qt.labs.settings 1.1
+import "."
 
 ApplicationWindow {
     id: window
@@ -7,6 +9,34 @@ ApplicationWindow {
     width: 720 * .7
     height: 1240 * .7
     title: qsTr("Tabs")
+
+    property string datastore: ""
+
+    Component.onCompleted: {
+        var datamodel = JSON.parse(datastore)
+        if (datastore && datamodel.length !== 0) {
+            SharedData.sitelists.clear()
+            for (var i = 0; i < datamodel.length; ++i) SharedData.sitelists.append(datamodel[i])
+        } else {
+            SharedData.sitelists.clear()
+            SharedData.sitelists.append({ "name": "Glosbe", "addr": "https://nb.glosbe.com/no/ko/[q]", "load": false})
+            SharedData.sitelists.append({ "name": "Farlex", "addr": "https://no.thefreedictionary.com/[q]", "load": false})
+            SharedData.sitelists.append({ "name": "UIB", "addr": "https://ordbok.uib.no/[q]", "load": false})
+            SharedData.sitelists.append({ "name": "NAOB", "addr": "https://www.naob.no/søk/[q]", "load": false})
+            SharedData.sitelists.append({ "name": "Google Image", "addr": "https://www.google.com/search?q=[q]&tbm=isch&sxsrf=ALeKk00VpvZmZoejuG0TyBRt9JFM3QLq-Q:1586085600718&source=lnms&sa=X&ved=0ahUKEwjArMGmldHoAhVGrosKHYncBKcQ_AUICigB&biw=1814&bih=1063&dpr=1"
+, "load": false})
+        }
+        mainSwipeView.interactive = false
+    }
+
+    onClosing: {
+        var datamodel = []
+        for (var i = 0; i < SharedData.sitelists.count; ++i) {
+            datamodel.push(SharedData.sitelists.get(i))
+            datamodel[i]["load"] = false
+        }
+        datastore = JSON.stringify(datamodel)
+    }
 
     SwipeView {
         id: mainSwipeView
@@ -18,18 +48,20 @@ ApplicationWindow {
         Search { id: search }
 
         Repeater {
-            model: sitelists
+            model: SharedData.sitelists
             visible: mainSwipeView.viewSearch
 
             SearchResults {
                 name: model.name
                 visible: mainSwipeView.viewSearch
                 address: model.addr.replace("[q]", mainSwipeView.keyword)
-                onAddressChanged: model.webview.urlChanged()
+                load: model.load
             }
         }
 
-        Settings {}
+        CustomSettings {
+            id: customSettings
+        }
     }
 
     footer: TabBar {
@@ -46,57 +78,35 @@ ApplicationWindow {
             }
         }
         Repeater {
-            model: sitelists
+            //model: customSettings.sitelists
+            model: SharedData.sitelists
             //visible: mainSwipeView.viewSearch
             TabButton {
                 text: model.name
-                visible: mainSwipeView.viewSearch
+                //visible: mainSwipeView.viewSearch
                 Connections {
                     function onClicked() {
                         model.load = true
                         mainSwipeView.currentIndex = model.index + 1
-
                     }
                 }
             }
         }
         TabButton {
             text: qsTr("Settings")
+
             Connections {
                 function onClicked() {
-                    mainSwipeView.currentIndex = sitelists.count + 1
+                    mainSwipeView.currentIndex = SharedData.sitelists.count + 1
                 }
             }
         }
     }
 
-    ListModel {
-        id : sitelists
-
-        ListElement {
-            name: "Farlex"
-            addr: "https://no.thefreedictionary.com/[q]"
-            load: false
-        }
-        ListElement {
-            name: "UIB"
-            addr: "https://ordbok.uib.no/[q]"
-            load: false
-        }
-        ListElement {
-            name: "NAOB"
-            addr: "https://www.naob.no/søk/[q]"
-            load: false
-        }
-        ListElement {
-            name: "Glosbe"
-            addr: "https://nb.glosbe.com/no/ko/[q]"
-            load: false
-        }
-        ListElement {
-            name: "Google Image"
-            addr: "https://www.google.com/search?q=[q]&tbm=isch&sxsrf=ALeKk00VpvZmZoejuG0TyBRt9JFM3QLq-Q:1586085600718&source=lnms&sa=X&ved=0ahUKEwjArMGmldHoAhVGrosKHYncBKcQ_AUICigB&biw=1814&bih=1063&dpr=1"
-            load: false
-        }
+    Settings {
+        id: settings
+        category: qsTr("Ordboksliste")
+        property alias datastore: window.datastore
     }
+
 }

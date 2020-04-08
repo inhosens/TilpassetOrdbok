@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QSettings>
 //#include <qtwebengineglobal.h>
 
 int main(int argc, char *argv[])
@@ -12,6 +13,12 @@ int main(int argc, char *argv[])
 
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     }
+
+    QCoreApplication::setOrganizationName("JeBros");
+    QCoreApplication::setOrganizationDomain("qt.io");
+    QCoreApplication::setApplicationName("TilpassetOrdbok");
+
+    QSettings settings;
 
     //QtWebEngine::initialize();
     QGuiApplication app(argc, argv);
