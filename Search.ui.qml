@@ -31,9 +31,7 @@ Page {
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.top: parent.top
-
             Keys.forwardTo: textEdit
-
             TextInput {
                 id: textEdit
                 text: qsTr("")

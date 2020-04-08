@@ -23,7 +23,7 @@ Page {
         height: 30
         onClicked:  {
             dialog.name = qsTr("")
-            dialog.addr = qsTr("")
+            dialog.addr = qsTr("https://")
             dialog.isNew = true
             dialog.index = SharedData.sitelists.count
             dialog.open()
@@ -74,10 +74,7 @@ Page {
                 RoundButton {
                     id: deleteButton
                     text: "X"
-                    //verticalAlignment: Label.AlignVCenter
-                    //height: parent.height
                     anchors.right: parent.right
-                    //color: "white"
 
                     background: Rectangle {
                         radius: deleteButton.radius
@@ -116,6 +113,7 @@ Page {
                 height: 30
                 color: "#aafd86"
                 width: parent.width
+                Keys.forwardTo: dinput001
                 TextInput {
                     id: dinput001
                     anchors.fill: parent
@@ -139,6 +137,7 @@ Page {
                 height: 30
                 color: "#aafd86"
                 width: parent.width
+                Keys.forwardTo: dinput002
                 TextInput {
                     id: dinput002
                     text: dialog.addr
@@ -161,6 +160,7 @@ Page {
                 height: 30
                 color: "#aafd86"
                 width: parent.width
+                Keys.forwardTo: dinput003
                 TextInput {
                     id: dinput003
                     text: dialog.index
