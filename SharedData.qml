@@ -33,5 +33,8 @@ QtObject {
             load: false
         }*/
     }
+    property var favorate: ListModel {
+        dynamicRoles: true
+    }
 }
 

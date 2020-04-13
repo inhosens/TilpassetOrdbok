@@ -17,12 +17,13 @@ Page {
         url: page.address
     }
 
+/*
     Connections {
         target: page
         onLoadChanged: {
             if (!load) webview.stop()
         }
-    }
+    }*/
 }
 
 /*##^##

@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = TilpassetOrdbok
-QT += quick
+QT += quick webview
 
 CONFIG += c++11
 
@@ -31,4 +31,19 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES +=
+
+HEADERS += \
+    qshareactivity.h
+SOURCES += \
+    qshareactivity.cpp
+
+android {
+    QT += androidextras
+
+    DISTFILES += \
+        android/AndroidManifest.xml
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+}
+
+OTHER_FILES += \
+    android/src/org/inhosens/JeBros/QShareActivity.java

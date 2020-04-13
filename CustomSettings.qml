@@ -17,9 +17,9 @@ Page {
 
     Button {
         id: addButton
-        text: qsTr("Add a new site")
+        text: qsTr("⊕ Add a new site")
         anchors.right: parent.right
-        anchors.rightMargin: 50
+        anchors.rightMargin: 20
         height: 30
         onClicked:  {
             dialog.name = qsTr("")
@@ -33,8 +33,8 @@ Page {
         id: instruction01
         anchors.top: addButton.bottom
         anchors.left: parent.left
-        text: "Click each item for modifyng or click 'x' for deleting"
-        anchors.leftMargin: 10
+        text: "Click each item for modifyng or click 'Θ' for deleting"
+        anchors.leftMargin: 20
         anchors.topMargin: 20
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
         visible: true
@@ -55,12 +55,16 @@ Page {
         delegate:
             Label {
                 id: modifyLabel
-                text: model.name
+                text: "• " + model.name
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 20
                 styleColor: "#c2c2c2"
                 width: parent.width
                 height: 40
+                background: Rectangle {
+                    color: "#89abd8"
+                }
+
                 MouseArea {
                     anchors.fill: modifyLabel
                     onClicked: {
@@ -73,17 +77,39 @@ Page {
                 }
                 RoundButton {
                     id: deleteButton
-                    text: "X"
+                    width: 30
+                    height: 30
+                    font.bold: true
+                    anchors.verticalCenter: modifyLabel.verticalCenter
+                    anchors.rightMargin: 5
+                    text: "Θ"
+                    flat: true
                     anchors.right: parent.right
 
                     background: Rectangle {
-                        radius: deleteButton.radius
+                        //radius: deleteButton.radius
                         color: "tomato"
                     }
-                    onClicked: SharedData.sitelists.remove(index)
+                    onClicked: {
+                        deleteConfirm.index = index
+                        deleteConfirm.open()
+                    }
                 }
             }
     }
+    Dialog {
+        id: deleteConfirm
+        title: "Confirm your deletion"
+        modal: true
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        x: (mainSwipeView.width - width) / 2
+        y: (mainSwipeView.height - height) / 2
+        //parent: ApplicationWindow.overlay
+        property int index
+
+        onAccepted: SharedData.sitelists.remove(index)
+    }
+
     Dialog {
         id: dialog
         title: "A Search Target"
@@ -188,9 +214,7 @@ Page {
                     SharedData.sitelists.move(index, parseInt(dinput003.text), 1)
             }
         }
-        //onRejected: console.log("Cancel clicked")
     }
-
 }
 
 

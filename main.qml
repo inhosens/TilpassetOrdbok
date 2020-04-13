@@ -8,7 +8,7 @@ ApplicationWindow {
     visible: true
     width: 720 * .7
     height: 1240 * .7
-    title: qsTr("Tabs")
+    title: qsTr("TilpassetOrdbok")
 
     property string datastore: ""
 
@@ -38,14 +38,14 @@ ApplicationWindow {
         datastore = JSON.stringify(datamodel)
     }
 
+    header: Search { id: search }
+
     SwipeView {
         id: mainSwipeView
         anchors.fill: parent
-        currentIndex: tabBar.currentIndex
+        currentIndex: 0
         property string keyword: ""
         property bool viewSearch: false
-
-        Search { id: search }
 
         Repeater {
             model: SharedData.sitelists
@@ -58,7 +58,6 @@ ApplicationWindow {
                 load: model.load
             }
         }
-
         CustomSettings {
             id: customSettings
         }
@@ -68,36 +67,17 @@ ApplicationWindow {
         id: tabBar
         currentIndex: mainSwipeView.currentIndex
 
-        TabButton {
-            id: defaultButton
-            text: "Søk"
-            Connections {
-                function onClicked() {
-                    mainSwipeView.currentIndex = 0
-                }
-            }
-        }
         Repeater {
-            //model: customSettings.sitelists
             model: SharedData.sitelists
-            //visible: mainSwipeView.viewSearch
             TabButton {
                 text: model.name
                 //visible: mainSwipeView.viewSearch
                 Connections {
                     function onClicked() {
                         model.load = true
-                        mainSwipeView.currentIndex = model.index + 1
+                        mainSwipeView.setCurrentIndex(model.index)
+                        //console.log(mainSwipeView.currentIndex)
                     }
-                }
-            }
-        }
-        TabButton {
-            text: qsTr("Settings")
-
-            Connections {
-                function onClicked() {
-                    mainSwipeView.currentIndex = SharedData.sitelists.count + 1
                 }
             }
         }
@@ -108,5 +88,4 @@ ApplicationWindow {
         category: qsTr("Ordboksliste")
         property alias datastore: window.datastore
     }
-
 }
