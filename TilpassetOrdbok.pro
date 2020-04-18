@@ -18,7 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    iso-icons.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -47,3 +48,6 @@ android {
 
 OTHER_FILES += \
     android/src/org/inhosens/JeBros/QShareActivity.java
+
+ISO_ICONS = \
+    iso_grs_7000_4_0421

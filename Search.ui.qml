@@ -1,5 +1,6 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
+import QtQuick.Extras 1.4
 
 Page {
     id: searchPage
@@ -12,11 +13,20 @@ Page {
 
         Button {
             id: button
-            text: "Søk"
-            width: 70
+            //text: "Søk"
+            width: 53
             anchors.bottom: parent.bottom
             anchors.top: parent.top
             anchors.left: rectangle.right
+            background: Rectangle {
+                color: "lightgreen"
+                Picture {
+                    id: picture
+                    anchors.fill: parent
+                    color: "#4b92eb"
+                    source: "qrc:/iso-icons/iso_grs_7000_4_0421.dat"
+                }
+            }
         }
         Button {
             id: buttonSetting
@@ -37,7 +47,7 @@ Page {
             //anchors.topMargin: -53
             //focus: true
             anchors.right: parent.right
-            anchors.rightMargin: 120
+            anchors.rightMargin: 106
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.top: parent.top
