@@ -2,26 +2,37 @@
 #define QSHAREACTIVITY_H
 
 #include <QObject>
+#include <QtQml>
+
 #if defined(QT_OS_ANDROID)
 #include <QtAndroid>
 #endif
 class QShareActivity : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 public:
     explicit QShareActivity(QObject *parent = nullptr);
 
     static QShareActivity *getInstance();
 
-    void setText(const QString &text);
-    QString text() const;
+    void setSharedString(const QString &text);
+
+    Q_INVOKABLE
+    QString sharedString() const;
 
 signals:
-    void textChanged();
+    void sharedStringChanged();
+
+public slots:
+#if defined(Q_OS_ANDROID)
+    void onApplicationStateChanged(Qt::ApplicationState applicationState);
+#endif
 
 private:
-    QString m_text;
+    QString m_sharedString;
+#if defined(Q_OS_ANDROID)
+    bool mPendingIntentsChecked = false;
+#endif
 
     static QShareActivity *m_instance;
 

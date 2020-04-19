@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
     QQmlContext *context = engine.rootContext();
     context->setContextProperty("qjShare", &qjshare);
 #if defined(Q_OS_ANDROID)
-    //QObject::connect(&app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), &qjshare, SLOT(onApplicationStateChanged(Qt::ApplicationState)));
+    QObject::connect(&app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), &qjshare, SLOT(onApplicationStateChanged(Qt::ApplicationState)));
 #endif
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

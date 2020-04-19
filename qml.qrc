@@ -7,6 +7,5 @@
         <file>CustomSettings.qml</file>
         <file>qmldir</file>
         <file>SharedData.qml</file>
-        <file>images/J.jpg</file>
     </qresource>
 </RCC>

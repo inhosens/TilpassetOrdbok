@@ -1,12 +1,13 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
-import QtQuick.Extras 1.4
+//import QtQuick.Extras 1.4
 
 Page {
     id: searchPage
     font.bold: true
 
     property bool showInputHelper: true
+    property string keyword: ""
 
     header: Label {
         id: label
@@ -16,19 +17,12 @@ Page {
         Button {
             id: button
             //text: "Søk"
-            width: 53
+            width: 44
             anchors.bottom: parent.bottom
             anchors.top: parent.top
             anchors.left: rectangle.right
-            background: Rectangle {
-                color: "lightgreen"
-                Picture {
-                    id: picture
-                    anchors.fill: parent
-                    color: "#4b92eb"
-                    source: "qrc:/iso-icons/iso_grs_7000_4_0421.dat"
-                }
-            }
+            icon.name: "?"
+            icon.source: "images/search.png"
         }
 
         Button {
@@ -49,7 +43,7 @@ Page {
             color: "#dfc2c2"
             //focus: true
             anchors.right: parent.right
-            anchors.rightMargin: 106
+            anchors.rightMargin: 88
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.top: parent.top
@@ -85,12 +79,13 @@ Page {
                 anchors.top: parent.top
                 anchors.right: roundButton.left
                 width: 60
-                height: 53
+                height: 44
                 visible: showInputHelper
                 Button {
                     id: c0Button
                     width: 20
                     text: "æ"
+                    topPadding: 12
                     highlighted: true
                     display: AbstractButton.TextBesideIcon
                     autoRepeat: true
@@ -110,6 +105,7 @@ Page {
                     id: c1Button
                     width: 20
                     text: "ø"
+                    topPadding: 12
                     highlighted: true
                     display: AbstractButton.TextBesideIcon
                     autoRepeat: true
@@ -129,6 +125,7 @@ Page {
                     id: c2Button
                     width: 20
                     text: "å"
+                    topPadding: 12
                     highlighted: true
                     display: AbstractButton.TextBesideIcon
                     autoRepeat: true
@@ -218,13 +215,7 @@ Page {
             mainSwipeView.setCurrentIndex(SharedData.sitelists.count)
         }
     }
-    Connections {
-        target: qjShare
-        onTextChanged: {
-            textEdit.text = sstring
-            button.onClicked()
-        }
-    }
+
     Connections {
         target: c0Button
         onClicked: {
@@ -246,6 +237,20 @@ Page {
             textEdit.forceActiveFocus()
         }
     }
+    Connections {
+        target: searchPage
+        onKeywordChanged: {
+            console.log("TilpassetOrdbok : keyword changed ", keyword)
+            textEdit.text = keyword
+            button.onClicked()
+            button.forceActiveFocus()
+        }
+    }
 }
 
 
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

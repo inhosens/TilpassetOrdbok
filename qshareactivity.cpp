@@ -25,18 +25,38 @@ QShareActivity *QShareActivity::getInstance()
     return m_instance;
 }
 
-void QShareActivity::setText(const QString &text)
+void QShareActivity::setSharedString(const QString &sstring)
 {
-    if (m_text == text)
+    if (m_sharedString == sstring)
         return;
-    qDebug() << "TilpassetOrdbok c++ :" << text;
-    m_text = text;
-    emit textChanged();
+    //qDebug() << "TilpassetOrdbok QShareActivity::setSharedString :" << sstring;
+    m_sharedString = sstring;
+    emit sharedStringChanged();
 }
 
-QString QShareActivity::text() const
+#if defined(Q_OS_ANDROID)
+void QShareActivity::onApplicationStateChanged(Qt::ApplicationState applicationState)
 {
-    return m_text;
+    if(applicationState == Qt::ApplicationState::ApplicationSuspended) {
+        // nothing to do
+        return;
+    }
+    if(applicationState == Qt::ApplicationState::ApplicationActive) {
+        if(!mPendingIntentsChecked) {
+            mPendingIntentsChecked = true;
+            QAndroidJniObject activity = QtAndroid::androidActivity();
+            if(activity.isValid()) {
+                activity.callMethod<void>("checkPendingIntents");
+                return;
+            }
+        }
+    }
+}
+#endif
+
+QString QShareActivity::sharedString() const
+{
+    return m_sharedString;
 }
 
 #if defined(Q_OS_ANDROID)
@@ -49,9 +69,8 @@ JNIEXPORT void JNICALL Java_org_inhosens_JeBros_QShareActivity_searchFromOtherAp
                                         jstring text)
 {
     const char *textStr = env->GetStringUTFChars(text, nullptr);
-    //qDebug() << "Test TilpassetOrdbok " << textStr;
     Q_UNUSED (obj)
-    QShareActivity::getInstance()->setText(textStr);
+    QShareActivity::getInstance()->setSharedString(textStr);
     env->ReleaseStringUTFChars(text, textStr);
     return;
 }

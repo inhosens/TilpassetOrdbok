@@ -93,4 +93,16 @@ ApplicationWindow {
         category: qsTr("Ordboksliste")
         property alias datastore: window.datastore
     }
+
+    Connections {
+        target: qjShare
+        onSharedStringChanged: {
+            console.log("TilpassetOrdbok: sharedStringChanged in main.qml")
+            if (qjShare.text !== "" && qjShare.sharedString() !== search.keyword) {
+                console.log("TilpassetOrdbok: main keyword")
+                console.log(qjShare.sharedString())
+                search.keyword = qjShare.sharedString()
+            }
+        }
+    }
 }
