@@ -1,11 +1,14 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
 import "."
+import Qt.labs.settings 1.0
 
 Page {
     id: settingPage
     //width: 720 * .7
     //height: 1240 * .7
+
+    signal changeInputHelperVisibility(bool helpInput)
 
     header: Label {
         text: qsTr("Innstillinger")
@@ -29,9 +32,22 @@ Page {
             dialog.open()
         }
     }
+
+    CheckBox {
+        id: checkboxInputHelper
+        anchors.top: addButton.bottom
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        text: qsTr("Help to input norwegian alphabets")
+        checked: true
+        onClicked: {
+            changeInputHelperVisibility(checkState === Qt.Checked)
+        }
+    }
+
     Label {
         id: instruction01
-        anchors.top: addButton.bottom
+        anchors.top: checkboxInputHelper.bottom
         anchors.left: parent.left
         text: "Click each item for modifyng or click 'Θ' for deleting"
         anchors.leftMargin: 20
@@ -97,6 +113,7 @@ Page {
                 }
             }
     }
+
     Dialog {
         id: deleteConfirm
         title: "Confirm your deletion"
@@ -218,8 +235,6 @@ Page {
 }
 
 
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
+
+
+

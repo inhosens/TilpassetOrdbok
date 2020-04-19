@@ -6,6 +6,8 @@ Page {
     id: searchPage
     font.bold: true
 
+    property bool showInputHelper: true
+
     header: Label {
         id: label
         font.pixelSize: Qt.application.font.pixelSize * 2
@@ -28,6 +30,7 @@ Page {
                 }
             }
         }
+
         Button {
             id: buttonSetting
             text: "Ξ"
@@ -44,7 +47,6 @@ Page {
         Rectangle {
             id: rectangle
             color: "#dfc2c2"
-            //anchors.topMargin: -53
             //focus: true
             anchors.right: parent.right
             anchors.rightMargin: 106
@@ -75,6 +77,73 @@ Page {
                 topPadding: 0
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 20
+            }
+
+            Row {
+                id: inputHelper
+                x: 382
+                anchors.top: parent.top
+                anchors.right: roundButton.left
+                width: 60
+                height: 53
+                visible: showInputHelper
+                Button {
+                    id: c0Button
+                    width: 20
+                    text: "æ"
+                    highlighted: true
+                    display: AbstractButton.TextBesideIcon
+                    autoRepeat: true
+                    checked: false
+                    font.preferShaping: true
+                    flat: true
+                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
+                    checkable: false
+                    font.pointSize: 20
+                    background: Rectangle {
+                        color: "#dfc2c2"
+                        opacity: 0.4
+                    }
+                }
+                Button {
+                    id: c1Button
+                    width: 20
+                    text: "ø"
+                    highlighted: true
+                    display: AbstractButton.TextBesideIcon
+                    autoRepeat: true
+                    checked: false
+                    font.preferShaping: true
+                    flat: true
+                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
+                    checkable: false
+                    font.pointSize: 20
+                    background: Rectangle {
+                        color: "#dfc2c2"
+                        opacity: 0.4
+                    }
+                }
+                Button {
+                    id: c2Button
+                    width: 20
+                    text: "å"
+                    highlighted: true
+                    display: AbstractButton.TextBesideIcon
+                    autoRepeat: true
+                    checked: false
+                    font.preferShaping: true
+                    flat: true
+                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
+                    checkable: false
+                    font.pointSize: 20
+                    background: Rectangle {
+                        color: "#dfc2c2"
+                        opacity: 0.4
+                    }
+                }
             }
 
             Button {
@@ -113,8 +182,6 @@ Page {
                 mainSwipeView.setCurrentIndex(0)
                 tabBar.setCurrentIndex(0)
             }
-//            if (mainSwipeView.currentIndex >= SharedData.sitelists.count)
-//                mainSwipeView.setCurrentIndex(1)
         }
     }
 
@@ -128,21 +195,7 @@ Page {
         Component.onCompleted: forceActiveFocus()
         onAccepted: button.onClicked()
     }
-/*
-    Image {
-        id: image
-        x: 352
-        y: 636
-        width: 100
-        height: 100
-        anchors.right: parent.right
-        anchors.rightMargin: 100
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 100
-        fillMode: Image.PreserveAspectFit
-        source: "images/J.jpg"
-    }
-*/
+
     Connections {
         target: searchPage
         Component.onCompleted: {
@@ -172,10 +225,27 @@ Page {
             button.onClicked()
         }
     }
+    Connections {
+        target: c0Button
+        onClicked: {
+            textEdit.insert(textEdit.cursorPosition, "æ")
+            textEdit.forceActiveFocus()
+        }
+    }
+    Connections {
+        target: c1Button
+        onClicked: {
+            textEdit.insert(textEdit.cursorPosition, "ø")
+            textEdit.forceActiveFocus()
+        }
+    }
+    Connections {
+        target: c2Button
+        onClicked: {
+            textEdit.insert(textEdit.cursorPosition, "å")
+            textEdit.forceActiveFocus()
+        }
+    }
 }
 
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
+
