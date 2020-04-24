@@ -49,5 +49,4 @@ android {
 OTHER_FILES += \
     android/src/org/inhosens/JeBros/QShareActivity.java
 
-ISO_ICONS = \
-    iso_grs_7000_4_0421
+RC_ICONS = icon.ico

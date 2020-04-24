@@ -5,12 +5,16 @@ import QtQuick.Controls 2.14
 Page {
     id: searchPage
     font.bold: true
-
     property bool showInputHelper: true
     property string keyword: ""
+    width: window.width
 
-    header: Label {
+    Label {
         id: label
+        //width: 640
+        anchors.left: parent.left
+        width: parent.width
+        height: 53
         font.pixelSize: Qt.application.font.pixelSize * 2
         padding: 10
 
@@ -249,8 +253,4 @@ Page {
 }
 
 
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
+

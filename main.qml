@@ -39,7 +39,31 @@ ApplicationWindow {
         datastore = JSON.stringify(datamodel)
     }
 
-    header: Search { id: search }
+    header: Column {
+        spacing: 0
+        Search { id: search }
+        TabBar {
+            id: tabBar
+            currentIndex: mainSwipeView.currentIndex
+            width: window.width
+
+            Repeater {
+                model: SharedData.sitelists
+                TabButton {
+                    text: model.name
+                    //visible: mainSwipeView.viewSearch
+                    Connections {
+                        function onClicked() {
+                            model.load = true
+                            mainSwipeView.setCurrentIndex(model.index)
+                            //console.log(mainSwipeView.currentIndex)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     SwipeView {
         id: mainSwipeView
@@ -67,9 +91,9 @@ ApplicationWindow {
             }
         }
     }
-
+/*
     footer: TabBar {
-        id: tabBar
+        id: tabBarf
         currentIndex: mainSwipeView.currentIndex
 
         Repeater {
@@ -86,7 +110,7 @@ ApplicationWindow {
                 }
             }
         }
-    }
+    }*/
 
     Settings {
         id: settings

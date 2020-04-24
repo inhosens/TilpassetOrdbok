@@ -157,6 +157,10 @@ Page {
                 color: "#aafd86"
                 width: parent.width
                 Keys.forwardTo: dinput001
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: dinput001.forceActiveFocus()
+                }
                 TextInput {
                     id: dinput001
                     anchors.fill: parent
@@ -164,8 +168,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     cursorVisible: true
                     font.pixelSize: 20
-                    visible: true
-                    focus: true
+                    selectByMouse: true
                     Component.onCompleted: forceActiveFocus()
                 }
             }
@@ -181,14 +184,17 @@ Page {
                 color: "#aafd86"
                 width: parent.width
                 Keys.forwardTo: dinput002
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: dinput002.forceActiveFocus()
+                }
                 TextInput {
                     id: dinput002
                     text: dialog.addr
                     verticalAlignment: Text.AlignVCenter
                     cursorVisible: true
                     font.pixelSize: 20
-                    visible: true
-                    focus: true
+                    selectByMouse: true
                 }
             }
             Text {
@@ -204,14 +210,17 @@ Page {
                 color: "#aafd86"
                 width: parent.width
                 Keys.forwardTo: dinput003
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: dinput003.forceActiveFocus()
+                }
                 TextInput {
                     id: dinput003
                     text: dialog.index
                     verticalAlignment: Text.AlignVCenter
                     cursorVisible: true
                     font.pixelSize: 20
-                    visible: true
-                    focus: true
+                    selectByMouse: true
                 }
             }
         }
