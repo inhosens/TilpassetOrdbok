@@ -146,7 +146,6 @@ Page {
                     }
                 }
             }
-
             Button {
                 id: roundButton
                 x: 502
@@ -167,7 +166,6 @@ Page {
                     color: "#dfc2c2"
                     opacity: 0.4
                 }
-
                 //autoExclusive: true
             }
         }

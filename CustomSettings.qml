@@ -221,6 +221,7 @@ Page {
                     cursorVisible: true
                     font.pixelSize: 20
                     selectByMouse: true
+                    validator: IntValidator {}
                 }
             }
         }

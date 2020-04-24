@@ -1,0 +1,5 @@
+You can use it without installation.
+1. Uncompress release.zip to the appropriate folder
+2. And then move TilpassetOrdbok.ext to the release folder
+
+If you don't have VC runtime library, you need to install vc_redist.x64.exe.
