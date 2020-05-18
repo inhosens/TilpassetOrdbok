@@ -50,3 +50,7 @@ OTHER_FILES += \
     android/src/org/inhosens/JeBros/QShareActivity.java
 
 RC_ICONS = icon.ico
+
+DISTFILES += \
+    android/build.gradle \
+    android/res/values/libs.xml
