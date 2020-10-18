@@ -58,9 +58,9 @@ int main(int argc, char *argv[])
 
     QSettings settings;
 
-    QGuiApplication app(argc, argv);
     QtWebView::initialize();
     //QtWebEngine::initialize();
+    QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
 #if defined(Q_OS_ANDROID)
