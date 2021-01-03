@@ -27,6 +27,15 @@ Page {
             anchors.left: rectangle.right
             icon.name: "?"
             icon.source: "images/search.png"
+            onClicked: {
+                mainSwipeView.keyword = textEdit.text
+                mainSwipeView.viewSearch = true
+                if (!tabBar.currentItem) {
+                    //console.log("reset tabbar")
+                    mainSwipeView.setCurrentIndex(0)
+                    tabBar.setCurrentIndex(0)
+                }
+            }
         }
 
         Button {
@@ -41,6 +50,9 @@ Page {
             anchors.topMargin: 0
             anchors.left: button.right
             anchors.leftMargin: 0
+            onClicked: {
+                mainSwipeView.setCurrentIndex(SharedData.sitelists.count)
+            }
         }
         Rectangle {
             id: rectangle
@@ -75,6 +87,8 @@ Page {
                 topPadding: 0
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 20
+                Component.onCompleted: forceActiveFocus()
+                onAccepted: button.onClicked()
             }
 
             Row {
@@ -104,6 +118,10 @@ Page {
                         color: "#dfc2c2"
                         opacity: 0.4
                     }
+                    onClicked: {
+                        textEdit.insert(textEdit.cursorPosition, "æ")
+                        textEdit.forceActiveFocus()
+                    }
                 }
                 Button {
                     id: c1Button
@@ -124,6 +142,10 @@ Page {
                         color: "#dfc2c2"
                         opacity: 0.4
                     }
+                    onClicked: {
+                        textEdit.insert(textEdit.cursorPosition, "ø")
+                        textEdit.forceActiveFocus()
+                    }
                 }
                 Button {
                     id: c2Button
@@ -143,6 +165,10 @@ Page {
                     background: Rectangle {
                         color: "#dfc2c2"
                         opacity: 0.4
+                    }
+                    onClicked: {
+                        textEdit.insert(textEdit.cursorPosition, "å")
+                        textEdit.forceActiveFocus()
                     }
                 }
             }
@@ -166,87 +192,29 @@ Page {
                     color: "#dfc2c2"
                     opacity: 0.4
                 }
-                //autoExclusive: true
+                onClicked: textEdit.clear()
             }
         }
     }
 
-    Connections {
-        target: button
-        onClicked: {
-            mainSwipeView.keyword = textEdit.text
-            mainSwipeView.viewSearch = true
-            if (!tabBar.currentItem) {
-                //console.log("reset tabbar")
-                mainSwipeView.setCurrentIndex(0)
-                tabBar.setCurrentIndex(0)
-            }
+    Component.onCompleted: {
+        var i = 1
+        var sstring = ""
+        while (i !== Qt.application.arguments.length) {
+            sstring += Qt.application.arguments[i]
+            sstring += " "
+            i++
         }
-    }
-
-    Connections {
-        target: roundButton
-        onClicked: textEdit.clear()
-    }
-
-    Connections {
-        target: textEdit
-        Component.onCompleted: forceActiveFocus()
-        onAccepted: button.onClicked()
-    }
-
-    Connections {
-        target: searchPage
-        Component.onCompleted: {
-            var i = 1
-            var sstring = ""
-            while (i !== Qt.application.arguments.length) {
-                sstring += Qt.application.arguments[i]
-                sstring += " "
-                i++
-            }
-            if (Qt.application.arguments.length > 1) {
-                textEdit.text = sstring
-                button.onClicked()
-            }
-        }
-    }
-    Connections {
-        target: buttonSetting
-        onClicked: {
-            mainSwipeView.setCurrentIndex(SharedData.sitelists.count)
-        }
-    }
-
-    Connections {
-        target: c0Button
-        onClicked: {
-            textEdit.insert(textEdit.cursorPosition, "æ")
-            textEdit.forceActiveFocus()
-        }
-    }
-    Connections {
-        target: c1Button
-        onClicked: {
-            textEdit.insert(textEdit.cursorPosition, "ø")
-            textEdit.forceActiveFocus()
-        }
-    }
-    Connections {
-        target: c2Button
-        onClicked: {
-            textEdit.insert(textEdit.cursorPosition, "å")
-            textEdit.forceActiveFocus()
-        }
-    }
-    Connections {
-        target: searchPage
-        onKeywordChanged: {
-            console.log("TilpassetOrdbok : keyword changed ", keyword)
-            textEdit.text = keyword
+        if (Qt.application.arguments.length > 1) {
+            textEdit.text = sstring
             button.onClicked()
-            button.forceActiveFocus()
         }
+    }
+    onKeywordChanged: {
+        console.log("TilpassetOrdbok : keyword changed ", keyword)
+        textEdit.text = keyword
+        button.onClicked()
+        button.forceActiveFocus()
     }
 }
 
