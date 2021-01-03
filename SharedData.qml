@@ -9,7 +9,7 @@ QtObject {
         /*
         ListElement {
             name: "Glosbe"
-            addr: "https://nb.glosbe.com/no/ko/[q]"
+            addr: "https://nb.glosbe.com/nb/ko/[q]"
             load: false
         }
         ListElement {
