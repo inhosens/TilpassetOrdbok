@@ -8,6 +8,11 @@ QtObject {
         //id : sitelists
         /*
         ListElement {
+            name: "Naver"
+            addr: "https://dict.naver.com/nokodict/#/search?query=[q]"
+            load: false
+        }
+        ListElement {
             name: "Glosbe"
             addr: "https://nb.glosbe.com/nb/ko/[q]"
             load: false
@@ -25,6 +30,11 @@ QtObject {
         ListElement {
             name: "NAOB"
             addr: "https://www.naob.no/søk/[q]"
+            load: false
+        }
+        ListElement {
+            name: "Wiktionary"
+            addr: "https://no.wiktionary.org/wiki/[q]"
             load: false
         }
         ListElement {

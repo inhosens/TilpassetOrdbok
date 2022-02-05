@@ -24,7 +24,7 @@ ApplicationWindow {
             SharedData.sitelists.append({ "name": "Farlex", "addr": "https://no.thefreedictionary.com/[q]", "load": false})
             SharedData.sitelists.append({ "name": "UIB", "addr": "https://ordbok.uib.no/[q]", "load": false})
             SharedData.sitelists.append({ "name": "NAOB", "addr": "https://www.naob.no/søk/[q]", "load": false})
-            SharedData.sitelists.append({ "name": "Wikionary", "addr": "https://no.wiktionary.org/wiki/[q]", "load": false})
+            SharedData.sitelists.append({ "name": "Wiktionary", "addr": "https://no.wiktionary.org/wiki/[q]", "load": false})
             SharedData.sitelists.append({ "name": "Google Image", "addr": "https://www.google.com/search?q=[q]&tbm=isch&sxsrf=ALeKk00VpvZmZoejuG0TyBRt9JFM3QLq-Q:1586085600718&source=lnms&sa=X&ved=0ahUKEwjArMGmldHoAhVGrosKHYncBKcQ_AUICigB&biw=1814&bih=1063&dpr=1"
 , "load": false})
         }
@@ -52,13 +52,19 @@ ApplicationWindow {
                 model: SharedData.sitelists
                 TabButton {
                     text: model.name
-                    //visible: mainSwipeView.viewSearch
                     Connections {
                         function onClicked() {
                             model.load = true
                             mainSwipeView.setCurrentIndex(model.index)
-                            //console.log(mainSwipeView.currentIndex)
                         }
+                    }
+                }
+            }
+            TabButton {
+                text: "三"
+                Connections {
+                    function onClicked() {
+                        mainSwipeView.setCurrentIndex(tabBar.count - 1)
                     }
                 }
             }
@@ -87,31 +93,10 @@ ApplicationWindow {
         CustomSettings {
             id: customSettings
             onChangeInputHelperVisibility: {
-                console.log(helpInput)
                 search.showInputHelper = helpInput
             }
         }
     }
-/*
-    footer: TabBar {
-        id: tabBarf
-        currentIndex: mainSwipeView.currentIndex
-
-        Repeater {
-            model: SharedData.sitelists
-            TabButton {
-                text: model.name
-                //visible: mainSwipeView.viewSearch
-                Connections {
-                    function onClicked() {
-                        model.load = true
-                        mainSwipeView.setCurrentIndex(model.index)
-                        //console.log(mainSwipeView.currentIndex)
-                    }
-                }
-            }
-        }
-    }*/
 
     Settings {
         id: settings

@@ -1,5 +1,6 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
+import QtQml.Models 2.1
 import "."
 import Qt.labs.settings 1.0
 
@@ -56,6 +57,112 @@ Page {
         visible: true
     }
 
+    Component {
+        id: dragDelegate
+
+        MouseArea {
+            id: dragArea
+
+            property bool held: false
+
+            anchors { left: parent.left; right: parent.right }
+            height: content.height
+
+            drag.target: held ? content : undefined
+            drag.axis: Drag.YAxis
+
+            onPressAndHold: held = true
+            onReleased: held = false
+            onClicked: {
+                dialog.name = name
+                dialog.addr = addr
+                dialog.isNew = false
+                dialog.index = index
+                dialog.open()
+            }
+
+            Rectangle {
+                id: content
+
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    verticalCenter: parent.verticalCenter
+                }
+                width: dragArea.width; height: 40
+
+                border.width: 1
+                border.color: "lightsteelblue"
+
+                color: dragArea.held ? "#89abd8" : "white"
+                Behavior on color { ColorAnimation { duration: 100 } }
+
+                radius: 2
+
+                Drag.active: dragArea.held
+                Drag.source: dragArea
+                Drag.hotSpot.x: width / 2
+                Drag.hotSpot.y: height / 2
+
+                states: State {
+                    when: dragArea.held
+
+                    ParentChange { target: content; parent: settingPage }
+                    AnchorChanges {
+                        target: content
+                        anchors { horizontalCenter: undefined; verticalCenter: undefined }
+                    }
+                }
+
+                Label {
+                    id: contentLabel
+                    text: "• " + name
+                    verticalAlignment: Text.AlignVCenter
+                    font.pixelSize: 20
+                    styleColor: "#c2c2c2"
+                    anchors.fill: parent
+
+                    RoundButton {
+                        id: deleteButton
+                        width: 30
+                        height: 30
+                        font.bold: true
+                        anchors.verticalCenter: contentLabel.verticalCenter
+                        anchors.rightMargin: 5
+                        text: "Θ"
+                        flat: true
+                        anchors.right: parent.right
+
+                        background: Rectangle {
+                            //radius: deleteButton.radius
+                            color: "tomato"
+                        }
+                        onClicked: {
+                            deleteConfirm.index = index
+                            deleteConfirm.open()
+                        }
+                    }
+                }
+            }
+
+            DropArea {
+                anchors { fill: parent; margins: 10 }
+
+                onEntered: (drag)=> {
+                               SharedData.sitelists.move(
+                                   drag.source.DelegateModel.itemsIndex,
+                                   dragArea.DelegateModel.itemsIndex, 1)
+                }
+            }
+        }
+    }
+
+    DelegateModel {
+        id: visualModel
+
+        model: SharedData.sitelists
+        delegate: dragDelegate
+    }
+
     ListView {
         id: settingView
         anchors.topMargin: 20
@@ -66,52 +173,8 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        model: SharedData.sitelists
-
-        delegate:
-            Label {
-                id: modifyLabel
-                text: "• " + model.name
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: 20
-                styleColor: "#c2c2c2"
-                width: parent.width
-                height: 40
-                background: Rectangle {
-                    color: "#89abd8"
-                }
-
-                MouseArea {
-                    anchors.fill: modifyLabel
-                    onClicked: {
-                        dialog.name = model.name
-                        dialog.addr = model.addr
-                        dialog.isNew = false
-                        dialog.index = index
-                        dialog.open()
-                    }
-                }
-                RoundButton {
-                    id: deleteButton
-                    width: 30
-                    height: 30
-                    font.bold: true
-                    anchors.verticalCenter: modifyLabel.verticalCenter
-                    anchors.rightMargin: 5
-                    text: "Θ"
-                    flat: true
-                    anchors.right: parent.right
-
-                    background: Rectangle {
-                        //radius: deleteButton.radius
-                        color: "tomato"
-                    }
-                    onClicked: {
-                        deleteConfirm.index = index
-                        deleteConfirm.open()
-                    }
-                }
-            }
+        model: visualModel
+        spacing: 4
     }
 
     Dialog {
