@@ -143,6 +143,7 @@ Page {
         property int index
 
         Column {
+            spacing: 2
             width: parent.width
             Text {
                 id: dtext001
@@ -152,6 +153,7 @@ Page {
                 styleColor: "#dfc2c2"
                 font.pixelSize: 17
             }
+
             Rectangle {
                 height: 30
                 color: "#aafd86"
@@ -166,12 +168,14 @@ Page {
                     anchors.fill: parent
                     text: dialog.name
                     verticalAlignment: Text.AlignVCenter
+                    autoScroll: true
                     cursorVisible: true
                     font.pixelSize: 20
                     selectByMouse: true
                     Component.onCompleted: forceActiveFocus()
                 }
             }
+
             Text {
                 id: dtext002
                 height: 40
@@ -192,6 +196,7 @@ Page {
                     id: dinput002
                     text: dialog.addr
                     verticalAlignment: Text.AlignVCenter
+                    autoScroll: true
                     cursorVisible: true
                     font.pixelSize: 20
                     selectByMouse: true
@@ -218,6 +223,7 @@ Page {
                     id: dinput003
                     text: dialog.index
                     verticalAlignment: Text.AlignVCenter
+                    autoScroll: true
                     cursorVisible: true
                     font.pixelSize: 20
                     selectByMouse: true
