@@ -26,7 +26,7 @@ Page {
             anchors.top: parent.top
             anchors.left: rectangle.right
             icon.name: "?"
-            icon.source: "images/search.png"
+            icon.source: "qrc:/images/search.png"
         }
 
         Button {
