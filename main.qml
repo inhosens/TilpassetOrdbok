@@ -19,6 +19,7 @@ ApplicationWindow {
             for (var i = 0; i < datamodel.length; ++i) SharedData.sitelists.append(datamodel[i])
         } else {
             SharedData.sitelists.clear()
+            SharedData.sitelists.append({ "name": "Naver", "addr": "https://dict.naver.com/nokodict/#/search?query=[q]", "load": false})
             SharedData.sitelists.append({ "name": "Glosbe", "addr": "https://nb.glosbe.com/nb/ko/[q]", "load": false})
             SharedData.sitelists.append({ "name": "Farlex", "addr": "https://no.thefreedictionary.com/[q]", "load": false})
             SharedData.sitelists.append({ "name": "UIB", "addr": "https://ordbok.uib.no/[q]", "load": false})
