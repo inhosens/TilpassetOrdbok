@@ -45,7 +45,7 @@ ApplicationWindow {
         Search { id: search }
         TabBar {
             id: tabBar
-            currentIndex: mainSwipeView.currentIndex
+            currentIndex: SharedData.sitelists.count
             width: window.width
 
             Repeater {
@@ -55,7 +55,7 @@ ApplicationWindow {
                     Connections {
                         function onClicked() {
                             model.load = true
-                            mainSwipeView.setCurrentIndex(model.index)
+                            tabBar.setCurrentIndex(model.index)
                         }
                     }
                 }
@@ -64,18 +64,17 @@ ApplicationWindow {
                 text: "三"
                 Connections {
                     function onClicked() {
-                        mainSwipeView.setCurrentIndex(tabBar.count - 1)
+                        tabBar.setCurrentIndex(SharedData.sitelists.count)
                     }
                 }
             }
         }
     }
 
-
     SwipeView {
         id: mainSwipeView
         anchors.fill: parent
-        currentIndex: 0
+        currentIndex: tabBar.currentIndex
         property string keyword: ""
         property bool viewSearch: false
 
@@ -96,6 +95,7 @@ ApplicationWindow {
                 search.showInputHelper = helpInput
             }
         }
+        Component.onCompleted: tabBar.setCurrentIndex(SharedData.sitelists.count)
     }
 
     Settings {

@@ -176,11 +176,7 @@ Page {
         onClicked: {
             mainSwipeView.keyword = textEdit.text
             mainSwipeView.viewSearch = true
-            if (!tabBar.currentItem) {
-                //console.log("reset tabbar")
-                mainSwipeView.setCurrentIndex(0)
-                tabBar.setCurrentIndex(0)
-            }
+            tabBar.setCurrentIndex(0)
         }
     }
 
@@ -213,9 +209,7 @@ Page {
     }
     Connections {
         target: buttonSetting
-        onClicked: {
-            mainSwipeView.setCurrentIndex(SharedData.sitelists.count)
-        }
+        onClicked: tabBar.setCurrentIndex(SharedData.sitelists.count)
     }
 
     Connections {
@@ -242,7 +236,7 @@ Page {
     Connections {
         target: searchPage
         onKeywordChanged: {
-            console.log("TilpassetOrdbok : keyword changed ", keyword)
+            //console.log("TilpassetOrdbok : keyword changed ", keyword)
             textEdit.text = keyword
             button.onClicked()
             button.forceActiveFocus()
