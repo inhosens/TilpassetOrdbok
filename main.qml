@@ -75,7 +75,7 @@ ApplicationWindow {
         id: mainSwipeView
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
-        property string keyword: ""
+        property string keyword
         property bool viewSearch: false
 
         Repeater {
@@ -85,7 +85,7 @@ ApplicationWindow {
             SearchResults {
                 name: model.name
                 visible: mainSwipeView.viewSearch
-                address: model.addr.replace("[q]", mainSwipeView.keyword)
+                address: mainSwipeView.keyword ? model.addr.replace("[q]", mainSwipeView.keyword) : ""
                 load: model.load
             }
         }
