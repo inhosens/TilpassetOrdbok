@@ -9,7 +9,7 @@ QtObject {
         /*
         ListElement {
             name: "Naver"
-            addr: "https://dict.naver.com/nokodict/#/search?query=[q]"
+            addr: "https://dict.naver.com/nokodict/#/search?range=all&query=[q]"
             load: false
         }
         ListElement {
@@ -24,7 +24,7 @@ QtObject {
         }
         ListElement {
             name: "UIB"
-            addr: "https://ordbok.uib.no/[q]"
+            addr: "https://ordbokene.no/bm,nn/search?q=[q]"
             load: false
         }
         ListElement {

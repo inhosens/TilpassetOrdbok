@@ -19,10 +19,10 @@ ApplicationWindow {
             for (var i = 0; i < datamodel.length; ++i) SharedData.sitelists.append(datamodel[i])
         } else {
             SharedData.sitelists.clear()
-            SharedData.sitelists.append({ "name": "Naver", "addr": "https://dict.naver.com/nokodict/#/search?query=[q]", "load": false})
+            SharedData.sitelists.append({ "name": "Naver", "addr": "https://dict.naver.com/nokodict/#/search?range=all&query=[q]", "load": false})
             SharedData.sitelists.append({ "name": "Glosbe", "addr": "https://nb.glosbe.com/nb/ko/[q]", "load": false})
             SharedData.sitelists.append({ "name": "Farlex", "addr": "https://no.thefreedictionary.com/[q]", "load": false})
-            SharedData.sitelists.append({ "name": "UIB", "addr": "https://ordbok.uib.no/[q]", "load": false})
+            SharedData.sitelists.append({ "name": "UIB", "addr": "https://ordbokene.no/bm,nn/search?q=[q]", "load": false})
             SharedData.sitelists.append({ "name": "NAOB", "addr": "https://www.naob.no/søk/[q]", "load": false})
             SharedData.sitelists.append({ "name": "Wiktionary", "addr": "https://no.wiktionary.org/wiki/[q]", "load": false})
             SharedData.sitelists.append({ "name": "Google Image", "addr": "https://www.google.com/search?q=[q]&tbm=isch&sxsrf=ALeKk00VpvZmZoejuG0TyBRt9JFM3QLq-Q:1586085600718&source=lnms&sa=X&ved=0ahUKEwjArMGmldHoAhVGrosKHYncBKcQ_AUICigB&biw=1814&bih=1063&dpr=1"
