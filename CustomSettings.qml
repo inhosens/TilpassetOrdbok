@@ -257,6 +257,7 @@ Page {
                 }
                 TextInput {
                     id: dinput002
+                    anchors.fill: parent
                     text: dialog.addr
                     verticalAlignment: Text.AlignVCenter
                     autoScroll: true
