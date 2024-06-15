@@ -1,6 +1,6 @@
-import QtQuick 2.14
-import QtQuick.Controls 2.14
-import QtWebView 1.14
+import QtQuick
+import QtQuick.Controls
+import QtWebView
 
 Page {
     id: page

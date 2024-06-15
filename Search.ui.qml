@@ -1,5 +1,5 @@
-import QtQuick 2.14
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Controls
 //import QtQuick.Extras 1.4
 
 Page {
@@ -173,7 +173,7 @@ Page {
 
     Connections {
         target: button
-        onClicked: {
+        function onClicked() {
             mainSwipeView.keyword = textEdit.text
             mainSwipeView.viewSearch = true
             tabBar.setCurrentIndex(0)
@@ -182,13 +182,13 @@ Page {
 
     Connections {
         target: roundButton
-        onClicked: textEdit.clear()
+        function onClicked() { textEdit.clear() }
     }
 
     Connections {
         target: textEdit
         Component.onCompleted: forceActiveFocus()
-        onAccepted: button.onClicked()
+        function onAccepted() { button.onClicked() }
     }
 
     Connections {
@@ -209,33 +209,35 @@ Page {
     }
     Connections {
         target: buttonSetting
-        onClicked: tabBar.setCurrentIndex(SharedData.sitelists.count)
+        function onClicked() {
+            tabBar.setCurrentIndex(SharedData.sitelists.count)
+        }
     }
 
     Connections {
         target: c0Button
-        onClicked: {
+        function onClicked() {
             textEdit.insert(textEdit.cursorPosition, "æ")
             textEdit.forceActiveFocus()
         }
     }
     Connections {
         target: c1Button
-        onClicked: {
+        function onClicked() {
             textEdit.insert(textEdit.cursorPosition, "ø")
             textEdit.forceActiveFocus()
         }
     }
     Connections {
         target: c2Button
-        onClicked: {
+        function onClicked() {
             textEdit.insert(textEdit.cursorPosition, "å")
             textEdit.forceActiveFocus()
         }
     }
     Connections {
         target: searchPage
-        onKeywordChanged: {
+        function onKeywordChanged() {
             //console.log("TilpassetOrdbok : keyword changed ", keyword)
             textEdit.text = keyword
             button.onClicked()

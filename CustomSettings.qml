@@ -1,8 +1,8 @@
-import QtQuick 2.14
-import QtQuick.Controls 2.14
-import QtQml.Models 2.1
+import QtQuick
+import QtQuick.Controls
+import QtQml.Models
 import "."
-import Qt.labs.settings 1.0
+import Qt.labs.settings
 
 Page {
     id: settingPage
